@@ -25,6 +25,21 @@ platform :android do
     gradle(task: "test")
   end
 
+   desc "Submit a new Release Build "
+   lane :release do |options|
+    version = options[:version]
+    release_notes  = options[:release_notes]
+
+
+   git_pull
+   gradle(task:"clean")
+   gradle(task:"build")
+   git_commit_all(message: "Bump version to #{version}") # 提交版本号修改
+   add_git_tag(tag: version, message: release_notes || "Bump version to #{version}") # 设置 tag
+   push_to_git_remote # 推送到 git 仓库
+
+   end
+
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
     gradle(task: "assembleRelease")

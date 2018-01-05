@@ -14,6 +14,8 @@
 min_fastlane_version("2.71.1")
 
 default_platform(:android)
+# chomp 去掉字符串末尾的\n或\r
+ENV["JG_ANDROID_SDK_DIR"] = %x( echo $ANDROID_HOME ).chomp
 
 platform :android do
   before_all do
@@ -25,15 +27,21 @@ platform :android do
     gradle(task: "test")
   end
 
+# 命令实例 gifastlane release version:0.0.1 release_notes:测试fastlane
+
    desc "Submit a new Release Build "
    lane :release do |options|
     version = options[:version]
     release_notes  = options[:release_notes]
 
-
+   # 获取最新的git 代码 默认从master
    git_pull
+   branch = git_branch
+   puts "#{branch}"
+   # 执行 clean 和 build 命令
    gradle(task:"clean")
    gradle(task:"build")
+   # 提交
    git_commit_all(message: "Bump version to #{version}") # 提交版本号修改
    add_git_tag(tag: version, message: release_notes || "Bump version to #{version}") # 设置 tag
    push_to_git_remote # 推送到 git 仓库

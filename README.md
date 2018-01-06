@@ -18,8 +18,11 @@
 参考网址 https://docs.fastlane.tools/getting-started/android/setup/
 
 在~/.bashrc, ~/.bash_profile 或者 ~/.zshrc  设置全局变量 
+```
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+```
+
 原因:fastlane requires some environment variables set up to run correctly. In particular, having your locale not set to a UTF-8 locale will cause issues with building and uploading your build
 
 安装命令:
@@ -39,3 +42,9 @@ https://github.com/thierryxing/Fastfiles/tree/master/fastlane/actions
 
 ruby 基础语法参考
 https://www.cnblogs.com/cnblogsfans/archive/2009/01/21/1379180.html
+
+
+## 注意:
+  ruby脚本中的request xx 表示类库
+  需要通过 
+  gem install --remote xx 来安装到本地,否则提示找不到

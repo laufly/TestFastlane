@@ -20,14 +20,17 @@ ENV["JG_ANDROID_SDK_DIR"] = %x( echo $ANDROID_HOME ).chomp
 platform :android do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    # 跳过文档
+    skip_docs
   end
 
   desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
+  lane :test do |options|
+    target_version = options[:version]
+    update_gradle_version(version: target_version)
   end
 
-# 命令实例 gifastlane release version:0.0.1 release_notes:测试fastlane
+# 命令实例 fastlane release version:0.0.1 release_notes:测试fastlane
 
    desc "Submit a new Release Build "
    lane :release do |options|
@@ -37,7 +40,7 @@ platform :android do
    # 获取最新的git 代码 默认从master
    git_pull
    branch = git_branch
-   puts "#{branch}"
+   puts "now branch name is #{branch}"
    # 执行 clean 和 build 命令
    gradle(task:"clean")
    gradle(task:"build")

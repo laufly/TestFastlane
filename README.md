@@ -37,3 +37,5 @@ fastlane init
 https://github.com/thierryxing/Fastfiles/tree/master/fastlane/actions
 参考博客: Fastlane实战 系列 地址:https://www.jianshu.com/p/0520192c9bd7
 
+ruby 基础语法参考
+https://www.cnblogs.com/cnblogsfans/archive/2009/01/21/1379180.html

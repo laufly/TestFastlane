@@ -38,7 +38,7 @@ platform :android do
 
    # 获取最新的git 代码 默认从master
    git_checkout(branch:"stage-v#{version}")
-   git_pull(only_tag:true)
+   git_pull(only_tags:true)
    branch = git_branch
    puts "now branch name is #{branch}"
    # 执行 clean 和 build 命令

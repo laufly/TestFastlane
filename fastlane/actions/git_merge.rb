@@ -1,18 +1,18 @@
 module Fastlane
   module Actions
-    class GitCheckoutAction < Action
+    class GitMergeAction < Action
       def self.run(params)
-        cmd = "git checkout "
+        cmd = "git merge "
         if params[:branch]
-          cmd << " #{params[:branch]}"
+          cmd << " #{params[:branch]} --no-ff"
         end
         result = Actions.sh(cmd.to_s)
-        UI.success("Successfully pushed 💾.")
+        UI.success("Successfully merge 💾.")
         return result
       end
 
       def self.description
-        "Directly commit the given file with the given message"
+        "Directly merge branch you want to merge"
       end
 
       def self.details
@@ -22,7 +22,7 @@ module Fastlane
       def self.available_options
         [
           FastlaneCore::ConfigItem.new(key: :branch,
-                                       description: "The branch you want to checkout",
+                                       description: "The branch you want to merge",
                                        is_string: true,
                                        verify_block: proc do |value|
                                        end),

@@ -29,12 +29,13 @@ platform :android do
   gradle(task:"test")
   end
 
-# 命令实例 fastlane release version:0.0.1 release_notes:测试fastlane
+# 命令实例 fastlane release version:0.0.1 release_notes:测试fastlane tag_notes:增加自定义tag信息
 
    desc "Submit a new Release Build "
    lane :release do |options|
     version = options[:version]
     release_notes  = options[:release_notes]
+    tag_notes = options[:tag_notes]
 
    # 获取最新的git 代码 默认从master
    git_checkout(branch:"stage-v#{version}")
@@ -57,7 +58,7 @@ platform :android do
    # 合并分之
    git_merge(branch:"stage-v#{version}")
    # 打tag
-   add_git_tag(tag: version, message: release_notes || "Bump version to #{version}") # 设置 tag
+   add_git_tag(tag: version, message: release_notes ||  "#{tag_notes}") # 设置 tag
    # 推到远程仓库
    push_to_git_remote # 推送到 git 仓库
 

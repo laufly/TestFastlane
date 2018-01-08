@@ -26,8 +26,7 @@ platform :android do
 
   desc "Runs all the tests"
   lane :test do |options|
-    target_version = options[:version]
-    update_gradle_version(version: target_version)
+  gradle(task:"test")
   end
 
 # 命令实例 fastlane release version:0.0.1 release_notes:测试fastlane
@@ -38,7 +37,8 @@ platform :android do
     release_notes  = options[:release_notes]
 
    # 获取最新的git 代码 默认从master
-   git_pull
+   git_checkout(branch:"stage-v#{version}")
+   git_pull(only_tag:true)
    branch = git_branch
    puts "now branch name is #{branch}"
    # 执行 clean 和 build 命令
@@ -46,7 +46,19 @@ platform :android do
    gradle(task:"build")
    # 提交
    git_commit_all(message: "Bump version to #{version}") # 提交版本号修改
+   # 推到分之
+   push_to_git_remote( remote: "origin",
+                        local_branch: "stage-v#{version}",
+                        remote_branch: "stage-v#{version}",
+                        force: true,
+                        tags: false )
+   # 切换到主分支
+   git_checkout(branch:"master")
+   # 合并分之
+   git_merge(branch:"stage-v#{version}")
+   # 打tag
    add_git_tag(tag: version, message: release_notes || "Bump version to #{version}") # 设置 tag
+   # 推到远程仓库
    push_to_git_remote # 推送到 git 仓库
 
    end

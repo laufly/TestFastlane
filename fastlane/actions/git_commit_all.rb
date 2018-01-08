@@ -20,7 +20,7 @@ module Fastlane
 
       def self.authors
         # So no one will ever forget your contribution to fastlane :) You are awesome btw!
-        ["thierry"]
+        ["fly"]
       end
 
       def self.is_supported?(platform)

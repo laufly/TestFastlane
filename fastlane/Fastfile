@@ -58,7 +58,7 @@ platform :android do
    # 合并分之
    git_merge(branch:"stage-v#{version}")
    # 打tag
-   add_git_tag(tag: version, message: release_notes ||  "#{tag_notes}") # 设置 tag
+   add_git_tag(tag: version, message: "#{tag_notes}") # 设置 tag
    # 推到远程仓库
    push_to_git_remote # 推送到 git 仓库
 

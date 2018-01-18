@@ -5,67 +5,32 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: Verifying required fastlane version" time="0.003070369">
+      <testcase classname="fastlane.lanes" name="0: Verifying fastlane version" time="0.002821084">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: default_platform" time="0.000649157">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.00078116">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: git_checkout" time="0.003849075">
+      <testcase classname="fastlane.lanes" name="2:  mkdir -p /home/fly/桌面/TestFastlane/fastlane/deploy/Wilddog_Video_Call_Android_2.4.6_All" time="0.001597806">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="03: git_pull" time="2.587542288">
+      <testcase classname="fastlane.lanes" name="3: cp -R /home/fly/.m2/repository/com/wilddog/client/wilddog-video-base-android/2.3.4/wilddog-video-base-android-2.3.4.aar /home/fly/桌面/TestFastlane/fastlane/deploy/Wilddog_Video_Call_Android_2.4.6_All/wilddog-video-base-android-2.3.4.aar" time="0.014235976">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="04: git_branch" time="0.004620904">
+      <testcase classname="fastlane.lanes" name="4: cp -R /home/fly/.m2/repository/com/wilddog/client/wilddog-video-base-android/2.3.4/wilddog-video-base-android-2.3.4.aar /home/fly/桌面/TestFastlane/fastlane/deploy/Wilddog_Video_Call_Android_2.4.6_All/wilddog-video-call-android-2.4.6.aar" time="0.012606221">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="05: gradle" time="1.204369658">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="06: gradle" time="7.343894998">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="07: git_commit_all" time="0.005088554">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="08: push_to_git_remote" time="6.301743655">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="09: git_checkout" time="0.009560182">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="10: git_merge" time="0.006995813">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="11: add_git_tag" time="0.003216428">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="12: push_to_git_remote" time="6.25959661">
+      <testcase classname="fastlane.lanes" name="5: zip" time="1.07283551">
         
       </testcase>
     

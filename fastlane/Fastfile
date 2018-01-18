@@ -26,7 +26,23 @@ platform :android do
 
   desc "Runs all the tests"
   lane :test do |options|
-  gradle(task:"test")
+      #将sdk 拷贝到当前路径下然后压缩上传到cdn
+      base_sdk_src = "/home/fly/.m2/repository/com/wilddog/client/wilddog-video-base-android/2.3.4/wilddog-video-base-android-2.3.4.aar"
+      video_call_sdk_src = "/home/fly/.m2/repository/com/wilddog/client/wilddog-video-call-android/2.4.6/wilddog-video-call-android-2.4.6.aar"
+      realPath= Pathname.new(File.dirname(__FILE__)).realpath
+      dest = "/deploy/Wilddog_Video_Call_Android_2.4.6_All"
+      puts base_sdk_src
+      puts video_call_sdk_src
+      puts dest
+      #cpPath="cp "+base_sdk_src+" "+dest;
+      sh " mkdir -p #{realPath}#{dest}"
+      sh "cp -R #{base_sdk_src} #{realPath}#{dest}/wilddog-video-base-android-2.3.4.aar"
+      sh "cp -R #{base_sdk_src} #{realPath}#{dest}/wilddog-video-call-android-2.4.6.aar"
+      # copy_file(src_path: "#{base_sdk_src},#{video_call_sdk_src}",dest_path: "#{dest}")
+      # copy_file(src_path: "#{video_call_sdk_src}",dest_path: "#{dest}")
+       zip(path: "#{realPath}/deploy/Wilddog_Video_Call_Android_2.4.6_All",
+            output_path: "#{realPath}/deploy/Wilddog_Video_Call_Android_2.4.6_All.zip")
+
   end
 
 # 命令实例 fastlane release version:0.0.1 release_notes:测试fastlane tag_notes:增加自定义tag信息
@@ -42,11 +58,13 @@ platform :android do
    git_pull(only_tags:true)
    branch = git_branch
    puts "now branch name is #{branch}"
-   # 执行 clean 和 build 命令
+   # 执行 clean 和 build 命令 上传到本地和中央仓库
    gradle(task:"clean")
    gradle(task:"build")
+   gradle(task:"publishToMavenLocal")
+   gradle(task:"uploadArchives")
    # 提交
-   git_commit_all(message: "Bump version to #{version}") # 提交版本号修改
+   git_commit_all(message: "Update version to #{version}") # 提交版本号修改
    # 推到分之
    push_to_git_remote( remote: "origin",
                         local_branch: "stage-v#{version}",
@@ -61,8 +79,9 @@ platform :android do
    add_git_tag(tag: version, message: "#{tag_notes}") # 设置 tag
    # 推到远程仓库
    push_to_git_remote # 推送到 git 仓库
-
    end
+
+
 
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do

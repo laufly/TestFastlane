@@ -3,10 +3,9 @@ require 'securerandom'
 
 module Fastlane
   module Actions
-
     class UploadSdkToCdnAction < Action
       def self.create_cdn_dir(version, cdn_url)
-        # url = "http://upload.ops.wilddog.cn/ios/?value=#{version}&type=mkdir"
+        # url = "http://upload.ops.wilddog.cn/android/?value=#{version}&type=mkdir"
         url = "#{cdn_url}?value=#{version}&type=mkdir"
         UI.message "Make CDN Dir With #{version}"
         response = Excon.post(url)

@@ -46,5 +46,12 @@ https://www.cnblogs.com/cnblogsfans/archive/2009/01/21/1379180.html
 
 ## 注意:
   ruby脚本中的request xx 表示类库
-  需要通过 
-  gem install --remote xx 来安装到本地,否则提示找不到
+  
+  需要通过 gem install --remote xx 来安装到本地,否则提示找不到
+
+
+  需要安装wilddog cli
+  
+```
+npm install -g wilddog-cli
+```

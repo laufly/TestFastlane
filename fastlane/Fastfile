@@ -24,13 +24,24 @@ platform :android do
     skip_docs
   end
 
+  desc "test upload to cdn"
+  lane :testupload do |options|
+    video_call_version_string = "1.2.6"
+    realPath= Pathname.new(File.dirname(__FILE__)).realpath
+     upload_sdk_to_cdn(
+           version:video_call_version_string,
+           file_path:"#{realPath}/deploy/Wilddog_Video_Call_Android_#{video_call_version_string}_All.zip",
+            url:"http://upload.ops.wilddog.cn/android/"
+           )
+  end
+
   desc "Runs all the tests"
   lane :test do |options|
       base_version_string = "2.3.4"
       video_call_version_string = "2.4.6"
       #1.将sdk 拷贝到当前路径下然后压缩
-      base_sdk_src = "/home/fly/.m2/repository/com/wilddog/client/wilddog-video-base-android/#{base_version_string}/wilddog-video-base-android-2.3.4.aar"
-      video_call_sdk_src = "/home/fly/.m2/repository/com/wilddog/client/wilddog-video-call-android/#{video_call_version_string}/wilddog-video-call-android-2.4.6.aar"
+      base_sdk_src = "/home/fly/.m2/repository/com/wilddog/client/wilddog-video-base-android/#{base_version_string}/wilddog-video-base-android-#{base_version_string}.aar"
+      video_call_sdk_src = "/home/fly/.m2/repository/com/wilddog/client/wilddog-video-call-android/#{video_call_version_string}/wilddog-video-call-android-#{base_version_string}.aar"
       realPath= Pathname.new(File.dirname(__FILE__)).realpath
       dest = "/deploy/Wilddog_Video_Call_Android_#{video_call_version_string}_All"
       puts base_sdk_src
@@ -42,12 +53,24 @@ platform :android do
       sh "cp -R #{base_sdk_src} #{realPath}#{dest}/wilddog-video-call-android-#{video_call_version_string}.aar"
        zip(path: "#{realPath}/deploy/Wilddog_Video_Call_Android_#{video_call_version_string}_All",
             output_path: "#{realPath}/deploy/Wilddog_Video_Call_Android_#{video_call_version_string}_All.zip")
-        # 2. Upload to CDN (url is optional)
-        upload_sdk_to_cdn(
-          version:video_call_version_string,
-          file_path:"#{realPath}/deploy/Wilddog_Video_Call_Android_#{video_call_version_string}_All.zip",
-          url:"http://upload.ops.wilddog.cn/android/"
-        )
+       #  2. 上传到 cdn
+       # upload_sdk_to_cdn(
+       #  version:video_call_version_string,
+       #  file_path:"#{realPath}/deploy/Wilddog_Video_Call_Android_#{video_call_version_string}_All.zip",
+       #   url:"http://upload.ops.wilddog.cn/android/"
+       #  )
+         3. 更新 wilddog 官网版本号
+         # 1. Update official website: Message digest
+          wdg_update_official_website(
+            version: video_call_version_string,
+            project: "Wilddog_Video_Call_Android_#{video_call_version_string}_All", # Wilddog_Video_Call/Room_Android_#{video_call_version_string}_All
+            website_appid: "testsync",
+            website_email: "578939729@qq.com",
+            website_password: "12345678",
+            website_project_name: "media",
+            file_path: "#{realPath}/deploy/Wilddog_Video_Call_Android_#{video_call_version_string}_All.zip",
+            print_rather_than_invoke: false
+          )
   end
 
 # 命令实例 fastlane release version:0.0.1 release_notes:测试fastlane tag_notes:增加自定义tag信息

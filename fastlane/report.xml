@@ -5,32 +5,17 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying fastlane version" time="0.002821084">
+      <testcase classname="fastlane.lanes" name="0: Verifying fastlane version" time="0.002660795">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.00078116">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000584282">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2:  mkdir -p /home/fly/桌面/TestFastlane/fastlane/deploy/Wilddog_Video_Call_Android_2.4.6_All" time="0.001597806">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="3: cp -R /home/fly/.m2/repository/com/wilddog/client/wilddog-video-base-android/2.3.4/wilddog-video-base-android-2.3.4.aar /home/fly/桌面/TestFastlane/fastlane/deploy/Wilddog_Video_Call_Android_2.4.6_All/wilddog-video-base-android-2.3.4.aar" time="0.014235976">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="4: cp -R /home/fly/.m2/repository/com/wilddog/client/wilddog-video-base-android/2.3.4/wilddog-video-base-android-2.3.4.aar /home/fly/桌面/TestFastlane/fastlane/deploy/Wilddog_Video_Call_Android_2.4.6_All/wilddog-video-call-android-2.4.6.aar" time="0.012606221">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="5: zip" time="1.07283551">
+      <testcase classname="fastlane.lanes" name="2: upload_sdk_to_cdn" time="65.146578469">
         
       </testcase>
     

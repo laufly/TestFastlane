@@ -1,7 +1,8 @@
 # TestFastlane
 
-测试使用自动化工具fastlane
-在ubuntu环境中使用fastlane
+测试使用自动化工具 fastlane,使用的是 Ruby 语法 
+
+在 ubuntu 环境中使用 fastlane
 
 # 准备工作:
 ## 1.安装 Ruby
@@ -31,26 +32,29 @@ export LANG=en_US.UTF-8
 ```
 
 #  fastlane 初始化
-找到项目使用以下命令生成fastlane 目录结构
+找到项目使用以下命令生成 fastlane 目录结构
+```
 fastlane init
-
-使用的ruby脚本
-官网action https://docs.fastlane.tools/actions/
-用户自定义的实例:
+```
+官网 Action 传送门  https://docs.fastlane.tools/actions/
+用户自定义的实例 传送门:
 https://github.com/thierryxing/Fastfiles/tree/master/fastlane/actions
-参考博客: Fastlane实战 系列 地址:https://www.jianshu.com/p/0520192c9bd7
+
+参考博客: Fastlane实战系列 地址:https://www.jianshu.com/p/0520192c9bd7
 
 ruby 基础语法参考
 https://www.cnblogs.com/cnblogsfans/archive/2009/01/21/1379180.html
 
 
 ## 注意:
-  ruby脚本中的request xx 表示类库
+  使用过程中遇到的问题:
   
-  需要通过 gem install --remote xx 来安装到本地,否则提示找不到
+  ruby脚本中的request xx 表示引用xx类库
+  
+  需要通过 `gem install --remote xx` 来安装到本地,否则提示找不到
 
-
-  需要安装wilddog cli
+## 安装 wilddog 小工具  
+  修改官网版本号,需要安装wilddog cli
   
 ```
 npm install -g wilddog-cli

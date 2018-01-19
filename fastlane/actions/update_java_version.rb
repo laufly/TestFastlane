@@ -1,14 +1,46 @@
 require "java-properties"
+require 'tempfile'
+require 'fileutils'
 module Fastlane
   module Actions
     class UpdateJavaVersionAction < Action
       def self.run(params)
-       #sh "sed 's/要被取代的字串/新的字串/g'"
-        #sh "cat mylibrary/src/main/java/wilddog/com/mylibrary/Version.java | sed 's/CODE/DsDataRate/' | tail --lines=+8"
-        properties = JavaProperties.load("mylibrary/src/main/java/wilddog/com/mylibrary/Version.java")
-        puts properties[:CODE]
-        #puts properties[:CODE]
-        #JavaProperties.write(properties, "mylibrary/src/main/java/wilddog/com/mylibrary/Version.java")
+       increment_version("mylibrary/src/main/java/wilddog/com/mylibrary/Version.java", params[:version], "CODE")
+      end
+
+      def self.increment_version(path, new_version_code, constant_name)
+          if !File.file?(path)
+              puts(" -> No file exist at path: (#{path})!")
+              return -1
+          end
+          begin
+              foundVersionCode = "false"
+              temp_file = Tempfile.new('fastlaneIncrementVersionCode')
+              File.open(path, 'r') do |file|
+                  file.each_line do |line|
+                      if line.include? constant_name and foundVersionCode=="false"
+                        #  puts(" -> line: (#{line})!")
+                        versionComponents = line.strip.split('=')
+                        version_code = versionComponents[versionComponents.length-1].tr("\"","").tr(";","").tr(" ","")
+                        line.replace line.sub(version_code, new_version_code)
+                        foundVersionCode = "true"
+                        puts line
+                        temp_file.puts line
+                      else
+                      temp_file.puts line
+                   end
+              end
+              file.close
+            end
+            temp_file.rewind
+            temp_file.close
+            FileUtils.mv(temp_file.path, path)
+            temp_file.unlink
+          end
+          if foundVersionCode == "true"
+              return new_version_code
+          end
+          return -1
       end
 
       def self.description

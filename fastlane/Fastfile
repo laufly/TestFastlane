@@ -42,7 +42,7 @@ platform :android do
     end
 
 
-  desc "1. 将 sdk 拷贝到当前路径下然后压缩"
+  desc "将 sdk 拷贝到当前路径下然后压缩"
   lane :copy_file do |options|
   base_version_string=options[:base_version]
   video_call_version_string=options[:video_call_version]
@@ -61,7 +61,7 @@ platform :android do
           output_path: "#{realPath}/deploy/Wilddog_Video_Call_Android_#{video_call_version_string}_All.zip")
   end
 
-  desc "2. 上传到 cdn"
+  desc "上传到 cdn"
   lane :upload_cdn do |options|
     video_call_version_string=options[:video_call_version]
     realPath= Pathname.new(File.dirname(__FILE__)).realpath
@@ -74,7 +74,7 @@ platform :android do
 
   end
 
-  desc "3. 更新 wilddog 官网版本号"
+  desc "更新 wilddog 官网版本号"
   lane :update_official_website do |options|
     video_call_version_string=options[:video_call_version]
     realPath= Pathname.new(File.dirname(__FILE__)).realpath

@@ -3,9 +3,10 @@ module Fastlane
   module Actions
     class UpdateGradleVersionAction < Action
       def self.run(params)
-        properties = JavaProperties.load("gradle.properties")
-        properties[:VERSION_NAME] = params[:version]
-        JavaProperties.write(properties, "gradle.properties")
+        properties = JavaProperties.load("mylibrary/gradle.properties")
+        puts properties
+        properties[:POM_VERSION] = params[:version]
+        JavaProperties.write(properties, "mylibrary/gradle.properties")
       end
 
       def self.description

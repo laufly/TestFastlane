@@ -18,6 +18,16 @@ xcode-select --install
 
 # Available Actions
 ## Android
+### android testupload
+```
+fastlane android testupload
+```
+test upload to cdn
+### android updateversion
+```
+fastlane android updateversion
+```
+Update versions do
 ### android test
 ```
 fastlane android test

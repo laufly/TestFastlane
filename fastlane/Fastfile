@@ -142,7 +142,7 @@ platform :android do
         is_correct=false
         while !is_correct do
            tag_notes = UI.input "请输入 tag 描述（如： 修复goOnline和gOffline失效问题）: "
-           is_correct=UI.confirm "是否确认描述信息为：#{tag_notes} "
+           is_correct=UI.confirm "描述信息为：#{tag_notes} "
         end
         UI.message "#{tag_notes}"
      end

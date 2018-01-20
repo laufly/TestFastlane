@@ -5,7 +5,8 @@ module Fastlane
   module Actions
     class UpdateJavaVersionAction < Action
       def self.run(params)
-       increment_version("mylibrary/src/main/java/wilddog/com/mylibrary/Version.java", params[:version], "CODE")
+       path = GetGradlePropertyAction.run(property:"VERSION_PATH");
+       increment_version(path, params[:version], "CODE")
       end
 
       def self.increment_version(path, new_version_code, constant_name)

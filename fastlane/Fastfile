@@ -39,7 +39,7 @@ platform :android do
   lane :update_version do |options|
       version = options[:version]
       update_java_version(version:version)
-      update_gradle_version(version:version)
+      #update_gradle_version(version:version)
     end
 
   desc "Update versions do"

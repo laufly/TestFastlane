@@ -146,7 +146,7 @@ platform :android do
         end
         UI.message "#{tag_notes}"
      end
-     add_git_tag(tag: version, message: "#{tag_notes}") # 设置 tag
+     #add_git_tag(tag: version, message: "#{tag_notes}") # 设置 tag
      # 推到远程仓库
      push_to_git_remote # 推送到 git 仓库
   end

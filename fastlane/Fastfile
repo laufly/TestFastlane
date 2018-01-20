@@ -42,7 +42,7 @@ platform :android do
       update_gradle_version(version:version)
     end
 
-desc "Update versions do"
+  desc "Update versions do"
   lane :testinput do |options|
      if UI.interactive?
       is_correct=false
@@ -108,23 +108,22 @@ desc "Update versions do"
 
   end
 
- desc "上传到本地 Maven"
- lane :publish_to_maven_local do |options|
-  # 执行 clean 和 build 命令 上传到本地
+  desc "上传到本地 Maven"
+  lane :publish_to_maven_local do |options|
+   # 执行 clean 和 build 命令 上传到本地
      gradle(task:"clean")
      gradle(task:"build")
-     gradle(task:"publishToMavenLocal")
+     # gradle(task:"publishToMavenLocal")
 
- end
+  end
 
   desc "上传到中央仓库"
   lane :publish_to_maven_remote do |options|
-   # 执行 clean 和 build 命令 上传到中央仓库
       gradle(task:"uploadArchives")
   end
 
- desc "提交"
- lane :commit_to_git do |options|
+  desc "提交"
+  lane :commit_to_git do |options|
      version = options[:version]
      # 提交
      git_commit_all(message: "Update version to #{version}") # 提交版本号修改
@@ -150,7 +149,7 @@ desc "Update versions do"
      add_git_tag(tag: version, message: "#{tag_notes}") # 设置 tag
      # 推到远程仓库
      push_to_git_remote # 推送到 git 仓库
- end
+  end
 
 # 命令实例 fastlane test
   desc "Runs all the tests"
@@ -160,7 +159,7 @@ desc "Update versions do"
 
       sh("fastlane update_version version:#{video_call_version_string}")
       sh("fastlane publish_to_maven_local version:#{video_call_version_string}")
-      sh("fastlane publish_to_maven_remote")
+     # sh("fastlane publish_to_maven_remote")
       sh("fastlane commit_to_git version:#{video_call_version_string}")
       sh("fastlane copy_file base_version:#{base_version_string} video_call_version:#{video_call_version_string}")
       # sh("fastlane upload_cdn video_call_version:#{video_call_version_string}")

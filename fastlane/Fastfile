@@ -155,15 +155,15 @@ platform :android do
   desc "Runs all the tests"
   lane :test do |options|
       base_version_string = "2.3.4"
-      video_call_version_string = "2.4.6"
+      video_call_version_string = "2.5.6"
 
-      sh("fastlane update_version version:#{video_call_version_string}")
-      sh("fastlane publish_to_maven_local version:#{video_call_version_string}")
+     #sh("fastlane update_version version:#{video_call_version_string}")
+     #sh("fastlane publish_to_maven_local version:#{video_call_version_string}")
      # sh("fastlane publish_to_maven_remote")
-      sh("fastlane commit_to_git version:#{video_call_version_string}")
+     #sh("fastlane commit_to_git version:#{video_call_version_string}")
       sh("fastlane copy_file base_version:#{base_version_string} video_call_version:#{video_call_version_string}")
       # sh("fastlane upload_cdn video_call_version:#{video_call_version_string}")
-      sh("fastlane update_official_website video_call_version:#{video_call_version_string}")
+     # sh("fastlane update_official_website video_call_version:#{video_call_version_string}")
 
   end
 

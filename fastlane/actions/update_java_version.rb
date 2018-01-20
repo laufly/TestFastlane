@@ -19,9 +19,6 @@ module Fastlane
               File.open(path, 'r') do |file|
                   file.each_line do |line|
                       if line.include? constant_name and foundVersionCode=="false"
-                        #  puts(" -> line: (#{line})!")
-                        #versionComponents = line.strip.split('=')
-                        #version_code = versionComponents[versionComponents.length-1].tr("\"","").tr(";","").tr(" ","")
                         line.replace line.sub(/[\d+\.]+/, new_version_code)
                         foundVersionCode = "true"
                         puts line

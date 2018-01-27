@@ -39,7 +39,7 @@ platform :android do
   lane :update_version do |options|
       version = options[:version]
       update_java_version(version:version)
-      update_gradle_version(version:version)
+      #update_gradle_version(version:version)
     end
 
   desc "Update versions do"
@@ -142,7 +142,7 @@ platform :android do
         is_correct=false
         while !is_correct do
            tag_notes = UI.input "请输入 tag 描述（如： 修复goOnline和gOffline失效问题）: "
-           is_correct=UI.confirm "是否确认描述信息为：#{tag_notes} "
+           is_correct=UI.confirm "描述信息为：#{tag_notes} "
         end
         UI.message "#{tag_notes}"
      end
@@ -151,58 +151,22 @@ platform :android do
      push_to_git_remote # 推送到 git 仓库
   end
 
-# 命令实例 fastlane test
-  desc "Runs all the tests"
-  lane :test do |options|
-      base_version_string = "2.3.4"
-      video_call_version_string = "2.4.6"
-
-      sh("fastlane update_version version:#{video_call_version_string}")
-      sh("fastlane publish_to_maven_local version:#{video_call_version_string}")
+# 命令实例 fastlane release
+  desc "release"
+  lane :release do |options|
+     # base_version_string = "2.3.4"
+      #video_call_version_string = "2.5.6"
+        base_version_string =get_gradle_property(property:"VIDEO_BASE_SDK_VERSION")
+        video_call_version_string =get_gradle_property(property:"POM_VERSION")
+     sh("fastlane update_version version:#{video_call_version_string}")
+    # sh("fastlane publish_to_maven_local version:#{video_call_version_string}")
      # sh("fastlane publish_to_maven_remote")
-      sh("fastlane commit_to_git version:#{video_call_version_string}")
+     sh("fastlane commit_to_git version:#{video_call_version_string}")
       sh("fastlane copy_file base_version:#{base_version_string} video_call_version:#{video_call_version_string}")
-      # sh("fastlane upload_cdn video_call_version:#{video_call_version_string}")
-      sh("fastlane update_official_website video_call_version:#{video_call_version_string}")
+     # sh("fastlane upload_cdn video_call_version:#{video_call_version_string}")
+     sh("fastlane update_official_website video_call_version:#{video_call_version_string}")
 
   end
-
-# 命令实例 fastlane release version:0.0.1 release_notes:测试fastlane tag_notes:增加自定义tag信息
-
-   desc "Submit a new Release Build "
-   lane :release do |options|
-    version = options[:version]
-    release_notes  = options[:release_notes]
-    tag_notes = options[:tag_notes]
-
-   # 获取最新的git 代码 默认从master
-   git_checkout(branch:"stage-v#{version}")
-   git_pull(only_tags:true)
-   branch = git_branch
-   puts "now branch name is #{branch}"
-   # 执行 clean 和 build 命令 上传到本地和中央仓库
-   gradle(task:"clean")
-   gradle(task:"build")
-   gradle(task:"publishToMavenLocal")
-   gradle(task:"uploadArchives")
-
-   # 提交
-   git_commit_all(message: "Update version to #{version}") # 提交版本号修改
-   # 推到分之
-   push_to_git_remote( remote: "origin",
-                        local_branch: "stage-v#{version}",
-                        remote_branch: "stage-v#{version}",
-                        force: true,
-                        tags: false )
-   # 切换到主分支
-   git_checkout(branch:"master")
-   # 合并分之
-   git_merge(branch:"stage-v#{version}")
-   # 打tag
-   add_git_tag(tag: version, message: "#{tag_notes}") # 设置 tag
-   # 推到远程仓库
-   push_to_git_remote # 推送到 git 仓库
-   end
 
   after_all do |lane|
     # This block is called, only if the executed lane was successful
